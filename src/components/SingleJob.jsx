@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import './singleJob.css'
-
-function SingleJob({job, selectedJob}) {
+import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
+function SingleJob({job, setSelectedJob}) {
 
 const jobDescription = job.description.replace(/<[^>]+>/g, '');
+const [like, setLike] = useState(false)
     return ( 
-        <Col sm={12} md={6} lg={4}>
-        <div className='single-job' >
+        
+        <div className='single-job pRelative' >
+            <span className="heart-icon pAbsolute" style={{display:!like? 'block':'none'}} onClick={() => setLike(!like)}><AiOutlineHeart/></span>
+            <span className="heart-icon pAbsolute" style={{display:like? 'block':'none'}} onClick={() => setLike(!like)}><AiFillHeart/></span>
         <p className='h4'>
            {job.title}
         </p>
         
+        <Link to={`/company/${job.company_name}`}>
         <p className='h6'>
            {job.company_name}
         </p>
+        </Link>
        
         <p className='h6'>
            {job.category}
@@ -24,15 +29,13 @@ const jobDescription = job.description.replace(/<[^>]+>/g, '');
            {jobDescription}
         </p>
         <a href={job.url}>
-        <p className='pointer text-light'>
+        <p className='pointer text-wrap'>
             {job.url}
         </p>
         </a>
-        {/* <Link to={`/JobDetail/${job._id}`}>
-            <span onClick= {selectedJob(job)}> see details</span>
-        </Link> */}
+            <span className="pointer" onClick= {setSelectedJob(job)}> see details</span> 
         </div>
-        </Col>
+       
     );
 }
 

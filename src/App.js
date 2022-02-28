@@ -6,6 +6,7 @@ import Company from './components/Company';
 import Home from './components/Home';
 import { useEffect, useState } from 'react';
 import JobDetail from './components/JobDetail';
+import MyNavBar from './components/MyNavBar';
 
 function App() {
 
@@ -33,11 +34,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+      <MyNavBar/>
       <Routes>
         <Route path="/" element={<Home  setSelectedJob={setSelectedJob}
         // setSearchQuery={setSearchQuery} search={search}
 />} />
-          <Route path="/JobDetail/:job" element={<JobDetail selectedJob={selectedJob}/>}/>
+          <Route path="/JobDetail/:job" element={<JobDetail selectedJob={selectedJob} setSelectedJob={setSelectedJob}/>}/>
           <Route path="/category/:category" element={<Category/>}/>
           <Route path="/company/:companyName" element={<Company/>}/>
           
