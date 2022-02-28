@@ -5,7 +5,7 @@ import {FaPlaneArrival} from 'react-icons/fa'
 import { useNavigate } from "react-router-dom";
 import SingleJob from "./SingleJob";
 
-const Home = () => {
+const Home = ({setSelectedJob}) => {
 
     // const navigate = useNavigate()
     const[search, setSearch] = useState('')
@@ -55,10 +55,10 @@ const Home = () => {
             }</div>
            </Col>
         </Row>
-        <Row>
-            <Col style={{display:showJobs? 'block':'none'}}>
-                {jobs && jobs.map((job,i) =><SingleJob key={job._id} job={job}/>)}
-            </Col>
+        <Row className='d-flex' style={{display:showJobs? 'block':'none'}}>
+                {jobs && jobs.map((job,i) =>
+                 <SingleJob key={job._id} job={job} setSelectedJob={setSelectedJob}/>
+                )}
         </Row>
 
     </Container> );

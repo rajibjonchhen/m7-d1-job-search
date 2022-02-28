@@ -5,12 +5,15 @@ import Category from './components/Category';
 import Company from './components/Company';
 import Home from './components/Home';
 import { useEffect, useState } from 'react';
+import JobDetail from './components/JobDetail';
 
 function App() {
-  const[search, setSearch] = useState('')
-  const setSearchQuery = (find) => {
-    setSearch(find)
-  }
+
+  const [selectedJob, setSelectedJob ] = useState(null)
+  // const[search, setSearch] = useState('')
+  // const setSearchQuery = (find) => {
+  //   setSearch(find)
+  // }
   
 
   // const [jobs, setJobs] = useState([])
@@ -31,10 +34,13 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home setSearchQuery={setSearchQuery} search={search} />} />
-        <Route path="/:category" element={<Category/>}/>
-        <Route path="/:company" element={<Company/>}/>
-        
+        <Route path="/" element={<Home  setSelectedJob={setSelectedJob}
+        // setSearchQuery={setSearchQuery} search={search}
+/>} />
+          <Route path="/JobDetail/:job" element={<JobDetail selectedJob={selectedJob}/>}/>
+          <Route path="/category/:category" element={<Category/>}/>
+          <Route path="/company/:companyName" element={<Company/>}/>
+          
       </Routes>
       </BrowserRouter>
     </div>

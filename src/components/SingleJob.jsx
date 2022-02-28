@@ -1,24 +1,38 @@
+import React from "react";
+import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import './singleJob.css'
 
-function SingleJob({job}) {
+function SingleJob({job, selectedJob}) {
+
+const jobDescription = job.description.replace(/<[^>]+>/g, '');
     return ( 
-    <div>
-            <div className="card mb-3" style="max-width: 540px;">
-            <div className="row g-0">
-                <div className="col-md-4">
-                <img src="..." className="img-fluid rounded-start" alt="company"/>
-                </div>
-                <div className="col-md-8">
-                <div className="card-body">
-                    <h5 className="card-title">{job.title}</h5>
-                    <p className="card-text">{job.category}</p>
-                        <p className="card-text">{job.company_name}</p>
-                    <p className="card-text"><small className="text-muted">{job.url}</small></p>
-                </div>
-                </div>
-            </div>
-         </div>
+        <Col sm={12} md={6} lg={4}>
+        <div className='single-job' >
+        <p className='h4'>
+           {job.title}
+        </p>
+        
+        <p className='h6'>
+           {job.company_name}
+        </p>
+       
+        <p className='h6'>
+           {job.category}
+        </p>
+        <p className='description'>
+           {jobDescription}
+        </p>
+        <a href={job.url}>
+        <p className='pointer text-light'>
+            {job.url}
+        </p>
+        </a>
+        {/* <Link to={`/JobDetail/${job._id}`}>
+            <span onClick= {selectedJob(job)}> see details</span>
+        </Link> */}
         </div>
+        </Col>
     );
 }
 

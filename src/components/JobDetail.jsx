@@ -1,11 +1,11 @@
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 
-const JobDetail = ({job}) =>  {
+const JobDetail = ({selectedJob}) =>  {
     return ( 
         <Container>
             <Row>
                 <Col>
-                <p className='h3'>{job.title}</p>
+                <p className='h3'>{selectedJob.title}</p>
                 <div>
                     
                 </div>
