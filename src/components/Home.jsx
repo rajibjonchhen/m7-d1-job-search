@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import {BsSearch} from 'react-icons/bs'
-import {FaPlaneArrival} from 'react-icons/fa'
+import {GiAirplaneArrival} from 'react-icons/gi'
 import { useNavigate } from "react-router-dom";
 import SingleJob from "./SingleJob";
 import './home.css'
 import JobDetail from "./JobDetail";
-const Home = ({setSelectedJob, selectedJob}) => {
+const Home = ({setSelectedJobArray, setSelectedJob, selectedJob}) => {
 
     // const navigate = useNavigate()
     const[search, setSearch] = useState('')
     const [showJobs, setShowJobs] = useState(false)
+    const [showCategory, setShowCategory] = useState(true)
+    
     const setSearchQuery = (find) => {
       setSearch(find)
     }
@@ -32,41 +34,49 @@ const Home = ({setSelectedJob, selectedJob}) => {
     }
   
 
-    const categories = ["it", "management", "hotel", "service", "communication", "internship", "marketing"]
+    const categories = ["it", "business", "Customer Service", "DevOps / Sysadmin", "Finance / Legal", "data", "marketing", "all others", "Software Development", "Human Resources", "Design", "QA"]
     return ( 
     <Container>
-        <Row>
-            <Col>
-                <p className="h1">We help you land in <br/> your dream job</p>
-                <div className='pRelative'>
-                        <input className='w-100' style={{}} type='text' id='search' value={search} onChange={(e) => {setSearchQuery(e.target.value)}}/>
-                        <div className='plane-icon'>
-                            <FaPlaneArrival/>
-                        </div>
-                    <span onClick={(e) => {fetchData("search",search)}}>
-                    <BsSearch/>
-                    </span>
+        <Row className="justify-content-center mt-5">
+            
+                {
+                categories.map((category, i) => <Col key={i} xs={6} sm={6} md={4} lg={3} xl={2} key={i} onClick={(e) => {fetchData("category", category)}} className="category">{category}</Col>)
+            }
+        
+        </Row>
+        <Row style={{position:'sticky', top:'64px', background:'white', zIndex:1}}>
+            <Col sm={12} md={8} lg={6} className='m-auto'>
+                <div className='search-section'>
+                    <div className=''>
+
+                      
+                        <p className="h1">We help you land in <br/> your dream job</p>
+                    </div>
+                    <div className='pRelative'>
+
+                            <input className='w-100 text-left' type='text' id='search' value={search} onChange={(e) => {setSearchQuery(e.target.value)}}/>
+                            <div className='plane-icon'>
+                                    <GiAirplaneArrival/>
+                            </div>    
+                        <span className='search-icon' onClick={(e) => {fetchData("search",search)}}>
+                        <BsSearch/>
+                        </span>
+                    </div>
                 </div>
             </Col>
         </Row>
-        <Row>
-            <Col>
-                <div className='pointer m-3 d-flex flex-wrap justify-content-between w-100'>{
-                categories.map((category, i) => <span key={i} onClick={(e) => {fetchData("category", category)}} className="p-2 m-2 bg-dark text-white">{category}</span>)
-            }</div>
-           </Col>
-        </Row>
+        
         <Row className='d-flex' style={{display:showJobs? 'block':'none'}}>
             <Col>
                 {jobs && jobs.map((job,i) =>
-                 <SingleJob key={job._id} job={job} setSelectedJob={setSelectedJob}/>
+                 <SingleJob key={job._id} job={job} setSelectedJob={setSelectedJob} setSelectedJobArray={setSelectedJobArray}/>
                  )}
             </Col>
-            {selectedJob  &&
+            {/* {selectedJob  &&
             <Col>
                      <JobDetail selectedJob={selectedJob}/>
             </Col>
-                     }
+                     } */}
         </Row>
 
     </Container> );

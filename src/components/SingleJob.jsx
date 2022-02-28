@@ -1,17 +1,24 @@
 import React, { useState } from "react";
 import { Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import './singleJob.css'
 import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
-function SingleJob({job, setSelectedJob}) {
+function SingleJob({job, setSelectedJob, setSelectedJobArray}) {
 
+const params  = useParams()
+const navigate = useNavigate()
 const jobDescription = job.description.replace(/<[^>]+>/g, '');
 const [like, setLike] = useState(false)
+
+const showDetail = (job) => {
+    setSelectedJob(job) 
+    setTimeout( navigate("/JobDetail"), 2000 )
+}
     return ( 
         
-        <div className='single-job pRelative' >
-            <span className="heart-icon pAbsolute" style={{display:!like? 'block':'none'}} onClick={() => setLike(!like)}><AiOutlineHeart/></span>
-            <span className="heart-icon pAbsolute" style={{display:like? 'block':'none'}} onClick={() => setLike(!like)}><AiFillHeart/></span>
+        <div className='single-job pRelative'>
+            <span className="heart-icon pAbsolute" style={{display:!like? 'block':'none'}} onClick={() => {setSelectedJobArray(job); setLike(!like)}}><AiOutlineHeart/></span>
+            <span className="heart-icon pAbsolute" style={{display:like? 'block':'none'}} onClick={() => {setSelectedJobArray(job); setLike(!like)}}><AiFillHeart/></span>
         <p className='h4'>
            {job.title}
         </p>
@@ -33,7 +40,7 @@ const [like, setLike] = useState(false)
             {job.url}
         </p>
         </a>
-            <span className="pointer" onClick= {setSelectedJob(job)}> see details</span> 
+            <span className="pointer" onClick= {(e) =>showDetail(job)}> see details</span> 
         </div>
        
     );

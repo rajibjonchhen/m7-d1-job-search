@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import SingleJob from "./SingleJob";
+import './company.css'
 
 function Company() {
 
@@ -31,7 +31,7 @@ function Company() {
         <Row>
             <Col>
                {companyJobs && companyJobs.map(job => 
-               <div>
+               <div  key={job._id} className='company-page'>
                    <p className='h2'>
                    {job.company_name}
                    </p>

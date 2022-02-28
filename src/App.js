@@ -4,42 +4,39 @@ import './App.css';
 import Category from './components/Category';
 import Company from './components/Company';
 import Home from './components/Home';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import JobDetail from './components/JobDetail';
 import MyNavBar from './components/MyNavBar';
+import JobLiked from './components/JobLiked';
 
 function App() {
 
   const [selectedJob, setSelectedJob ] = useState(null)
-  // const[search, setSearch] = useState('')
-  // const setSearchQuery = (find) => {
-  //   setSearch(find)
-  // }
-  
+  const [likedJob, setLikedJob] = useState([])
 
-  // const [jobs, setJobs] = useState([])
-  // const fetchData = async(field, query) => {
-  //   try {
-  //     let response = await fetch(`https://strive-jobs-api.herokuapp.com/jobs?${field}=${query}&limit=40`)
-  //     if(response.ok){
-  //       let data = await response.json()
-  //       console.log(data)
-  //       setJobs(data)
-  //     }
-  //   } catch (error) {
-      
-  //   }
-  // }
+  const setSelectedJobArray = (job) => {
+    const reqJob = likedJob.findIndex(item => item._id === job._id)
+    if(reqJob === -1){
+      likedJob.push(job)
+      console.log(likedJob)
+    } else {
+      const remJobs = likedJob.filter(item => item._id !== job._id)
+      setLikedJob(remJobs)
+      console.log(likedJob)
+
+    }
+  }
 
   return (
     <div className="App">
       <BrowserRouter>
-      <MyNavBar/>
+      <MyNavBar likedJob={likedJob}/>
       <Routes>
-        <Route path="/" element={<Home  setSelectedJob={setSelectedJob}
+        <Route path="/" element={<Home  setSelectedJob={setSelectedJob} setSelectedJobArray={setSelectedJobArray}
         // setSearchQuery={setSearchQuery} search={search}
 />} />
-          <Route path="/JobDetail/:job" element={<JobDetail selectedJob={selectedJob} setSelectedJob={setSelectedJob}/>}/>
+          <Route path="/JobDetail" element={<JobDetail selectedJob={selectedJob} setSelectedJob={setSelectedJob}/>}/>
+          <Route path="/JobLiked" element={<JobLiked likedJob={likedJob}/>}/>
           <Route path="/category/:category" element={<Category/>}/>
           <Route path="/company/:companyName" element={<Company/>}/>
           
