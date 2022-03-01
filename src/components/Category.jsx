@@ -2,6 +2,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import SingleJob from "./SingleJob";
 
 function Category({jobs}) {
+    
     return ( 
         <Container>
             <Row>

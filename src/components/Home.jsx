@@ -40,7 +40,7 @@ const Home = ({setSelectedJobArray, setSelectedJob, selectedJob}) => {
         <Row className="justify-content-center mt-5">
             
                 {
-                categories.map((category, i) => <Col key={i} xs={6} sm={6} md={4} lg={3} xl={2} key={i} onClick={(e) => {fetchData("category", category)}} className="category">{category}</Col>)
+                categories.map((category, i) => <Col key={i} xs={4} sm={4} md={3} lg={2} xl={2}  onClick={(e) => {fetchData("category", category)}} className="category">{category}</Col>)
             }
         
         </Row>
